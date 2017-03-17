@@ -1,0 +1,14 @@
+[Unit]
+Description="Call of Duty:2 Server"
+After=network-online.target
+
+[Service]
+Type=idle
+User=cod2
+Group=cod2
+WorkingDirectory=/home/cod2/cod2-srv
+ExecStart=/home/cod2/cod2-srv/cod2_lnxded +exec dedicated.cfg +set ttycon 0 +set dedicated 2 +set net_port 28961
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

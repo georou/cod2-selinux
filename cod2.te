@@ -1,0 +1,52 @@
+policy_module(cod2, 1.3)
+
+########################################
+#
+# Declarations
+#
+
+#permissive cod2_t;
+
+type cod2_t;
+type cod2_exec_t;
+init_daemon_domain(cod2_t, cod2_exec_t)
+role system_r types cod2_t;
+
+type cod2_home_t;
+files_type(cod2_home_t)
+userdom_user_home_content(cod2_home_t)
+
+type cod2_unit_file_t;
+systemd_unit_file(cod2_unit_file_t)
+
+type cod2_port_t;
+corenet_port(cod2_port_t)
+
+########################################
+##
+## Local policy
+##
+
+allow cod2_t self:process { execmem execstack };
+allow cod2_t self:udp_socket { bind connect create getattr setopt };
+allow cod2_t cod2_home_t:file execmod;
+
+allow cod2_t cod2_port_t:udp_socket name_bind;
+
+manage_files_pattern(cod2_t, cod2_home_t, cod2_home_t)
+manage_dirs_pattern(cod2_t, cod2_home_t, cod2_home_t)
+exec_files_pattern(cod2_t, cod2_home_t, cod2_home_t)
+
+userdom_user_home_dir_filetrans(cod2_t, cod2_home_t, { file dir })
+
+
+
+corenet_udp_bind_generic_node(cod2_t)
+
+auth_read_passwd(cod2_t)
+
+sysnet_read_config(cod2_t)
+sysnet_dns_name_resolve(cod2_t)
+
+userdom_manage_user_home_content_dirs(cod2_t)
+userdom_manage_user_home_content_files(cod2_t)

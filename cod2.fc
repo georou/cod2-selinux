@@ -2,4 +2,4 @@ HOME_DIR/cod2-srv(/.*)?				gen_context(system_u:object_r:cod2_home_t,s0)
 HOME_DIR/\.callofduty2(/.*)?			gen_context(system_u:object_r:cod2_home_t,s0)
 HOME_DIR/cod2-srv/cod2_lnxded		--	gen_context(system_u:object_r:cod2_exec_t,s0)
 
-/usr/lib/systemd/system/cod2-srv.*	--	gen_context(system_u:object_r:cod2_unit_file_t,s0)
+/etc/systemd/system/cod2-srv.*		--	gen_context(system_u:object_r:cod2_unit_file_t,s0)
